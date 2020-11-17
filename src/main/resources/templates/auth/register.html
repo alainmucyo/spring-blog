@@ -1,0 +1,39 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="~{layout/master}"
+>
+    <div layout:fragment="content">
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+            <div class="card">
+                <div class="card-header">REGISTER</div>
+                <div class="card-body">
+
+                    <form th:action="@{/register}" method="post" th:object="${user}">
+
+                       <div class="form-group">
+                           <label for="name">Name</label>
+                           <input type="text" class="form-control" th:field="*{name}" id="name">
+                           <small class="text-danger text-capitalize" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+                       </div>
+                       <div class="form-group">
+                           <label for="email">Email</label>
+                           <input type="email" class="form-control" th:field="*{email}" id="email">
+                           <small class="text-danger text-capitalize" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+                           <small class="text-danger text-capitalize" th:if="${exists}">Email Already taken</small>
+                       </div>
+                       <div class="form-group">
+                           <label for="password">Password</label>
+                           <input type="password" class="form-control" th:field="*{password}" id="password">
+                           <small class="text-capitalize text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+                       </div>
+                       <div class="form-group">
+                           <input type="submit" class="btn btn-success btn-raised" value="Submit">
+                       </div>
+                   </form>
+               </div>
+           </div>
+           </div>
+       </div>
+   </div>
+</div>

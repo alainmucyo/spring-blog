@@ -1,0 +1,55 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="~{layout/master}"
+>
+    <div layout:fragment="content">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card mb-2">
+                    <div class="card-header" th:text="${post.getName()}"></div>
+                    <div class="card-body">
+                        <div class="card-title">
+                            <span class="badge badge-info" th:text="${post.getCategory().getName()}"></span>
+                        </div>
+                        <div th:text="${post.getContent()}"></div>
+                    </div>
+                    <div class="card-footer">
+                        <span>By: <span th:text="${post.getUser().getName()}"></span></span>
+                        <span class="text-muted float-right"
+                              th:text="${#dates.year(post.getCreated_at())+' '+#dates.monthNameShort(post.getCreated_at())+' '+#dates.dayOfWeekName(post.getCreated_at())}"></span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">Comment</div>
+                    <div class="card-body">
+                        <form th:object="${comment}" method="post" th:action="@{/comment}">
+                            <div class="form-group">
+                                <textarea placeholder="Create Comment..." th:field="*{content}" class="form-control"
+                                          style="width: 45%"
+                                          rows="4"></textarea>
+                                <input type="hidden" th:value="${post.getId()}" name="postId">
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-success btn-raised" value="Post A Comment">
+                            </div>
+                        </form>
+                        <hr>
+                        <div class="card mb-2" th:each="comment:${comments}">
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <b th:text="${comment.getUser().getName()}"> </b>
+                                </div>
+                                <div th:text="${comment.getContent()}"></div>
+                                <p>
+                                    <span class="text-muted float-right"
+                                          th:text="${#dates.year(comment.getCreatedAt())+' '+#dates.monthNameShort(comment.getCreatedAt())+' '+#dates.dayOfWeekName(comment.getCreatedAt())}"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

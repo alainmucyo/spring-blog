@@ -1,0 +1,41 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+     layout:decorate="~{layout/master}"
+>
+    <div layout:fragment="content">
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-header">Create A Post</div>
+                    <div class="card-body">
+                        <form method="post" th:action="@{/post}" th:object="${post}">
+                            <div class="form-group">
+                                <label for="name">Post Name</label>
+                                <input type="text" class="form-control" id="name" th:field="*{name}">
+                                <small class="text-danger text-capitalize" th:if="${#fields.hasErrors('name')}"
+                                       th:errors="*{name}"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select name="category" id="category" class="form-control">
+                                    <option value="1" th:each="category:${categories}" th:text="${category.name}"
+                                            th:value="${category.id}"></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="content">Post Content</label>
+                                <textarea class="form-control" id="content" th:field="*{content}"></textarea>
+                                <small class="text-danger text-capitalize" th:if="${#fields.hasErrors('content')}"
+                                       th:errors="*{content}"></small>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-primary btn-raised" value="Submit">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
